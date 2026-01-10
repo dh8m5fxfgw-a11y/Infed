@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horus - Egyptian Fashion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --sand: #e6ccb3;
+            --sand-dark: #b08968;
+            --lapis: #26619c;
+            --charcoal: #2c2c2c;
+            --pyramid-gradient: linear-gradient(to bottom right, #f0c674, #d4af37, #b8941f);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f4e9;
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url('https://www.transparenttextures.com/patterns/sandpaper.png');
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--lapis);
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: rgba(44, 44, 44, 0.95);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border-bottom: 3px solid var(--gold);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            color: var(--gold);
+            font-size: 2.5rem;
+            animation: spin 20s linear infinite;
+        }
+        
+        .logo h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(to right, var(--gold), #f0c674);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--sand);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .lang-switcher {
+            background-color: var(--sand-dark);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .lang-switcher:hover {
+            background-color: var(--gold);
+        }
+        
+        .cart-icon {
+            position: relative;
+            color: var(--sand);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--gold);
+            color: var(--charcoal);
+            font-size: 0.8rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pyramid {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--pyramid-gradient);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            opacity: 0.2;
+            bottom: -150px;
+            right: -100px;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .pyramid:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            right: 150px;
+            animation-delay: 5s;
+            opacity: 0.15;
+        }
+        
+        .pyramid:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: -75px;
+            right: 300px;
+            animation-delay: 10s;
+            opacity: 0.1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+        
+        .hero h2 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            color: var(--sand);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--charcoal);
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--gold);
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+        }
+        
+        /* Products Section */
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin: 3rem 0 2rem;
+            position: relative;
+            color: var(--lapis);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: var(--gold);
+        }
+        
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .product-image {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 3px solid var(--gold);
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--lapis);
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .product-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .add-to-cart {
+            background-color: var(--sand-dark);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            width: 100%;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--lapis);
+        }
+        
+        /* Payment Section */
+        .payment-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid var(--gold);
+        }
+        
+        .payment-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--lapis);
+            text-align: center;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .payment-icon {
+            font-size: 3.5rem;
+            color: var(--sand-dark);
+        }
+        
+        .payment-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--lapis);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+        
+        .pay-now-btn {
+            grid-column: 1 / -1;
+            background-color: var(--gold);
+            color: var(--charcoal);
+            border: none;
+            padding: 1.2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pay-now-btn:hover {
+            background-color: var(--sand-dark);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--charcoal);
+            color: var(--sand);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 5px solid var(--gold);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--sand);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            color: #aaa;
+        }
+        
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .products-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .payment-form {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Language Specific */
+        .arabic {
+            direction: rtl;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-content {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .close-cart {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--charcoal);
+        }
+        
+        .cart-items {
+            margin: 1.5rem 0;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+        
+        .cart-total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 1.5rem;
+            color: var(--lapis);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-eye logo-icon"></i>
+                <h1>HORUS</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Collections</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+            <div class="header-controls">
+                <button class="lang-switcher" id="langSwitcher">
+                    <i class="fas fa-language"></i>
+                    <span>English</span>
+                </button>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="pyramid"></div>
+        <div class="pyramid"></div>
+        <div class="pyramid"></div>
+        
+        <div class="hero-content">
+            <h2>Wear the Legacy of Pharaohs</h2>
+            <p>Discover our exclusive collection of Egyptian-inspired clothing, where ancient mystique meets modern fashion.</p>
+            <a href="#products" class="cta-button">Explore Collection</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products">
+        <h2 class="section-title">Our Collections</h2>
+        
+        <div class="products-container">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Pharaoh's Tunic" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Pharaoh's Tunic</h3>
+                    <p class="product-price">$89.99</p>
+                    <p class="product-description">Luxurious linen tunic with golden hieroglyphic patterns, inspired by ancient Egyptian royalty.</p>
+                    <button class="add-to-cart" data-id="1" data-name="Pharaoh's Tunic" data-price="89.99">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Nefertiti Dress" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Nefertiti Dress</h3>
+                    <p class="product-price">$129.99</p>
+                    <p class="product-description">Elegant dress with intricate Egyptian motifs, embodying the grace of Queen Nefertiti.</p>
+                    <button class="add-to-cart" data-id="2" data-name="Nefertiti Dress" data-price="129.99">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Desert Explorer Jacket" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Desert Explorer Jacket</h3>
+                    <p class="product-price">$149.99</p>
+                    <p class="product-description">Stylish jacket with pyramid-inspired patterns, perfect for modern adventurers.</p>
+                    <button class="add-to-cart" data-id="3" data-name="Desert Explorer Jacket" data-price="149.99">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80" alt="Anubis Hoodie" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Anubis Hoodie</h3>
+                    <p class="product-price">$79.99</p>
+                    <p class="product-description">Comfortable hoodie featuring the iconic Anubis design, combining comfort with ancient symbolism.</p>
+                    <button class="add-to-cart" data-id="4" data-name="Anubis Hoodie" data-price="79.99">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Scarab Symbol T-Shirt" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Scarab Symbol T-Shirt</h3>
+                    <p class="product-price">$39.99</p>
+                    <p class="product-description">100% cotton t-shirt with an embroidered scarab beetle, the ancient symbol of transformation.</p>
+                    <button class="add-to-cart" data-id="5" data-name="Scarab Symbol T-Shirt" data-price="39.99">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product 6 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1520006403909-838d6b92c22e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Cleopatra Skirt" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Cleopatra Skirt</h3>
+                    <p class="product-price">$99.99</p>
+                    <p class="product-description">Flowing skirt with golden accents, inspired by the legendary elegance of Cleopatra.</p>
+                    <button class="add-to-cart" data-id="6" data-name="Cleopatra Skirt" data-price="99.99">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment-section">
+        <h2 class="payment-title">Secure Checkout</h2>
+        
+        <div class="payment-methods">
+            <i class="fab fa-cc-visa payment-icon"></i>
+            <i class="fab fa-cc-mastercard payment-icon"></i>
+            <i class="fab fa-cc-amex payment-icon"></i>
+            <i class="fab fa-cc-paypal payment-icon"></i>
+        </div>
+        
+        <form class="payment-form" id="paymentForm">
+            <div class="form-group">
+                <label class="form-label" for="cardName">Cardholder Name</label>
+                <input type="text" id="cardName" class="form-input" placeholder="Full Name" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" class="form-input" placeholder="1234 5678 9012 3456" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="expiryDate">Expiry Date</label>
+                <input type="text" id="expiryDate" class="form-input" placeholder="MM/YY" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="cvv">CVV</label>
+                <input type="text" id="cvv" class="form-input" placeholder="123" required>
+            </div>
+            
+            <div class="form-group full-width">
+                <label class="form-label" for="billingAddress">Billing Address</label>
+                <input type="text" id="billingAddress" class="form-input" placeholder="123 Nile Street, Cairo, Egypt" required>
+            </div>
+            
+            <button type="submit" class="pay-now-btn">
+                <i class="fas fa-lock"></i> Complete Purchase
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>HORUS</h3>
+                <p>Bringing the majesty of ancient Egypt to modern fashion. Our collections are inspired by pharaohs, pyramids, and the rich history of the Nile.</p>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Collections</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 HORUS Egyptian Fashion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <span class="close-cart" id="closeCart">&times;</span>
+            <h2>Your Cart</h2>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be added here dynamically -->
+                <p id="emptyCartMessage">Your cart is empty</p>
+            </div>
+            <div class="cart-total" id="cartTotal">Total: $0.00</div>
+            <button class="pay-now-btn" style="margin-top: 1rem;" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Language Switching
+        const langSwitcher = document.getElementById('langSwitcher');
+        const langText = langSwitcher.querySelector('span');
+        let currentLang = 'en';
+        
+        langSwitcher.addEventListener('click', function() {
+            if (currentLang === 'en') {
+                // Switch to Arabic
+                currentLang = 'ar';
+                langText.textContent = 'العربية';
+                document.body.classList.add('arabic');
+                
+                // Update key text elements
+                document.querySelector('.logo h1').textContent = 'حورس';
+                document.querySelector('.hero h2').textContent = 'ارتدِ إرث الفراعنة';
+                document.querySelector('.hero p').textContent = 'اكتشف مجموعتنا الحصرية من الملابس المستوحاة من مصر القديمة، حيث يلتقي الغموض القديم مع الموضة الحديثة.';
+                document.querySelector('.cta-button').textContent = 'استكشف المجموعة';
+                document.querySelector('.section-title').textContent = 'مجموعاتنا';
+                document.querySelector('.payment-title').textContent = 'الدفع الآمن';
+                
+                // Update product names (in a real app, you'd have a full translation)
+                const productTitles = document.querySelectorAll('.product-title');
+                const arabicTitles = [
+                    'ثوب الفرعون',
+                    'فستان نفرتيتي',
+                    'سترة مستكشف الصحراء',
+                    'هودي أنوبيس',
+                    'تيشرت رمز الجعران',
+                    'تنورة كليوباترا'
+                ];
+                
+                productTitles.forEach((title, index) => {
+                    title.textContent = arabicTitles[index] || title.textContent;
+                });
+                
+                // Update buttons
+                const addToCartButtons = document.querySelectorAll('.add-to-cart');
+                addToCartButtons.forEach(button => {
+                    button.innerHTML = '<i class="fas fa-cart-plus"></i> أضف إلى السلة';
+                });
+                
+                document.querySelector('.pay-now-btn').innerHTML = '<i class="fas fa-lock"></i> أكمل الشراء';
+                
+                // Update footer text
+                document.querySelectorAll('.footer-column h3')[0].textContent = 'حورس';
+                document.querySelectorAll('.footer-column p')[0].textContent = 'نجلب عظمة مصر القديمة إلى الموضة الحديثة. مجموعاتنا مستوحاة من الفراعنة والأهرامات والتاريخ الغني لنهر النيل.';
+                document.querySelectorAll('.footer-column h3')[1].textContent = 'روابط سريعة';
+                document.querySelectorAll('.footer-column h3')[2].textContent = 'خدمة العملاء';
+                document.querySelectorAll('.footer-column h3')[3].textContent = 'تواصل معنا';
+                
+            } else {
+                // Switch back to English
+                currentLang = 'en';
+                langText.textContent = 'English';
+                document.body.classList.remove('arabic');
+                
+                // Restore English text
+                document.querySelector('.logo h1').textContent = 'HORUS';
+                document.querySelector('.hero h2').textContent = 'Wear the Legacy of Pharaohs';
+                document.querySelector('.hero p').textContent = 'Discover our exclusive collection of Egyptian-inspired clothing, where ancient mystique meets modern fashion.';
+                document.querySelector('.cta-button').textContent = 'Explore Collection';
+                document.querySelector('.section-title').textContent = 'Our Collections';
+                document.querySelector('.payment-title').textContent = 'Secure Checkout';
+                
+                // Restore product names
+                const englishTitles = [
+                    "Pharaoh's Tunic",
+                    "Nefertiti Dress",
+                    "Desert Explorer Jacket",
+                    "Anubis Hoodie",
+                    "Scarab Symbol T-Shirt",
+                    "Cleopatra Skirt"
+                ];
+                
+                const productTitles = document.querySelectorAll('.product-title');
+                productTitles.forEach((title, index) => {
+                    title.textContent = englishTitles[index];
+                });
+                
+                // Update buttons
+                const addToCartButtons = document.querySelectorAll('.add-to-cart');
+                addToCartButtons.forEach(button => {
+                    button.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                });
+                
+                document.querySelector('.pay-now-btn').innerHTML = '<i class="fas fa-lock"></i> Complete Purchase';
+                
+                // Update footer text
+                document.querySelectorAll('.footer-column h3')[0].textContent = 'HORUS';
+                document.querySelectorAll('.footer-column p')[0].textContent = 'Bringing the majesty of ancient Egypt to modern fashion. Our collections are inspired by pharaohs, pyramids, and the rich history of the Nile.';
+                document.querySelectorAll('.footer-column h3')[1].textContent = 'Quick Links';
+                document.querySelectorAll('.footer-column h3')[2].textContent = 'Customer Service';
+                document.querySelectorAll('.footer-column h3')[3].textContent = 'Connect With Us';
+            }
+        });
+        
+        // Shopping Cart Functionality
+        const cartIcon = document.getElementById('cartIcon');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartTotalElement = document.getElementById('cartTotal');
+        const emptyCartMessage = document.getElementById('emptyCartMessage');
+        const cartCount = document.querySelector('.cart-count');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        
+        let cart = [];
+        
+        // Initialize cart from localStorage if available
+        if (localStorage.getItem('horusCart')) {
+            cart = JSON.parse(localStorage.getItem('horusCart'));
+            updateCartDisplay();
+        }
+        
+        // Add to cart functionality
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const price = parseFloat(this.getAttribute('data-price'));
+                
+                // Check if item already in cart
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id,
+                        name,
+                        price,
+                        quantity: 1
+                    });
+                }
+                
+                // Update cart in localStorage
+                localStorage.setItem('horusCart', JSON.stringify(cart));
+                
+                // Update cart display
+                updateCartDisplay();
+                
+                // Visual feedback
+                this.innerHTML = '<i class="fas fa-check"></i> Added!';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                }, 1500);
+            });
+        });
+        
+        // Update cart display
+        function updateCartDisplay() {
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart modal if open
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartItemsContainer.innerHTML = '<p id="emptyCartMessage">Your cart is empty</p>';
+                cartTotalElement.textContent = 'Total: $0.00';
+                return;
+            }
+            
+            emptyCartMessage.style.display = 'none';
+            
+            // Generate cart items HTML
+            let cartHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                cartHTML += `
+                    <div class="cart-item">
+                        <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="${item.name}" class="cart-item-image">
+                        <div style="flex-grow: 1;">
+                            <h4>${item.name}</h4>
+                            <p>$${item.price.toFixed(2)} × ${item.quantity}</p>
+                        </div>
+                        <div>
+                            <p style="font-weight: bold;">$${itemTotal.toFixed(2)}</p>
+                            <button class="remove-item" data-id="${item.id}" style="background: none; border: none; color: #d9534f; cursor: pointer;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartItemsContainer.innerHTML = cartHTML;
+            cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+            
+            // Add event listeners to remove buttons
+            const removeButtons = document.querySelectorAll('.remove-item');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    cart = cart.filter(item => item.id !== id);
+                    localStorage.setItem('horusCart', JSON.stringify(cart));
+                    updateCartDisplay();
+                });
+            });
+        }
+        
+        // Cart modal controls
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+        
+        closeCart.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+        
+        // Checkout button
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            cartModal.style.display = 'none';
+            document.querySelector('.payment-section').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Payment form submission
+        const paymentForm = document.getElementById('paymentForm');
+        paymentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const cardName = document.getElementById('cardName').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const billingAddress = document.getElementById('billingAddress').value;
+            
+            if (!cardName || !cardNumber || !expiryDate || !cvv || !billingAddress) {
+                alert('Please fill in all payment details.');
+                return;
+            }
+            
+            // Simulate payment processing
+            const payButton = this.querySelector('.pay-now-btn');
+            const originalText = payButton.innerHTML;
+            payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            payButton.disabled = true;
+            
+            setTimeout(() => {
+                alert(`Payment successful! Thank you for your purchase from Horus.`);
+                
+                // Clear cart
+                cart = [];
+                localStorage.removeItem('horusCart');
+                updateCartDisplay();
+                
+                // Reset form
+                paymentForm.reset();
+                payButton.innerHTML = originalText;
+                payButton.disabled = false;
+            }, 2000);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
