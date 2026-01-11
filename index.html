@@ -7,47 +7,170 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Eagle+Lake&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            --blood-red: #8b0000;
+            --dark-red: #5a0000;
             --gold: #d4af37;
-            --sand: #e6ccb3;
-            --sand-dark: #b08968;
-            --lapis: #26619c;
-            --charcoal: #2c2c2c;
-            --pyramid-gradient: linear-gradient(to bottom right, #f0c674, #d4af37, #b8941f);
+            --dark-gold: #b8941f;
+            --obsidian: #0a0a0a;
+            --sand: #c2b280;
+            --cartoon-sand: #e6ccb3;
+            --pyramid-dark: #3a1c1c;
+            --door-red: #a52a2a;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: all 0.3s ease;
         }
         
         body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #f8f4e9;
-            color: var(--charcoal);
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--obsidian);
+            color: var(--sand);
             line-height: 1.6;
             overflow-x: hidden;
-            background-image: url('https://www.transparenttextures.com/patterns/sandpaper.png');
+            opacity: 0;
+            animation: fadeInBody 0.5s forwards 4s;
         }
         
-        h1, h2, h3, h4 {
-            font-family: 'Cinzel', serif;
-            color: var(--lapis);
+        @keyframes fadeInBody {
+            to { opacity: 1; }
+        }
+        
+        /* ===== PRELOADER & PYRAMID ENTRANCE ===== */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--obsidian);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .pyramid-entrance {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            transform-style: preserve-3d;
+            transform: rotateX(20deg) rotateY(30deg);
+            animation: pyramidFloat 6s ease-in-out infinite;
+        }
+        
+        .pyramid-body {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 300px solid var(--pyramid-dark);
+            transform-origin: center;
+            animation: pyramidBuild 2s forwards;
+        }
+        
+        .pyramid-side {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 300px solid rgba(139, 0, 0, 0.7);
+            transform-origin: center;
+            clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+            animation: pyramidBuild 2.5s forwards 0.5s;
+        }
+        
+        .pyramid-door {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 120px;
+            background-color: var(--door-red);
+            border: 8px solid var(--dark-gold);
+            z-index: 2;
+            transform-origin: bottom;
+            animation: openDoor 2s forwards 2s;
+        }
+        
+        .door-knob {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--gold);
+            border-radius: 50%;
+        }
+        
+        .light-beams {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 200px solid rgba(212, 175, 55, 0.15);
+            animation: lightBeam 3s forwards 3s;
+        }
+        
+        @keyframes pyramidBuild {
+            0% { transform: scale(0) translateY(100px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        
+        @keyframes openDoor {
+            0% { transform: translateX(-50%) scaleY(1); }
+            100% { transform: translateX(-50%) scaleY(0); }
+        }
+        
+        @keyframes lightBeam {
+            0% { 
+                border-bottom-width: 0;
+                border-bottom-color: rgba(212, 175, 55, 0); 
+            }
+            100% { 
+                border-bottom-width: 200px;
+                border-bottom-color: rgba(212, 175, 55, 0.15); 
+            }
+        }
+        
+        @keyframes pyramidFloat {
+            0%, 100% { transform: rotateX(20deg) rotateY(30deg) translateY(0); }
+            50% { transform: rotateX(20deg) rotateY(30deg) translateY(-20px); }
+        }
+        
+        /* ===== MAIN WEBSITE CONTENT ===== */
+        .main-content {
+            display: none;
+            animation: contentAppear 1s forwards;
+        }
+        
+        @keyframes contentAppear {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* Header & Navigation */
         header {
-            background-color: rgba(44, 44, 44, 0.95);
+            background-color: rgba(10, 10, 10, 0.95);
             padding: 1rem 2rem;
             position: fixed;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            border-bottom: 3px solid var(--gold);
+            border-bottom: 3px solid var(--blood-red);
+            box-shadow: 0 0 25px rgba(139, 0, 0, 0.3);
         }
         
         .nav-container {
@@ -58,25 +181,59 @@
             margin: 0 auto;
         }
         
-        .logo {
+        .logo-container {
             display: flex;
             align-items: center;
             gap: 15px;
         }
         
-        .logo-icon {
-            color: var(--gold);
-            font-size: 2.5rem;
-            animation: spin 20s linear infinite;
+        .horus-eye {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, var(--gold) 0%, var(--dark-gold) 70%);
+            border-radius: 50%;
+            overflow: hidden;
+            animation: eyeGlow 3s infinite alternate;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
         }
         
-        .logo h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(to right, var(--gold), #f0c674);
+        .eye-pupil {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: var(--obsidian);
+            border-radius: 50%;
+            border: 3px solid var(--blood-red);
+        }
+        
+        .eye-detail {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes eyeGlow {
+            0% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+            100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.9), 0 0 40px rgba(139, 0, 0, 0.4); }
+        }
+        
+        .logo-text {
+            font-family: 'Eagle Lake', cursive;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--gold), var(--blood-red));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
         }
         
         .nav-links {
@@ -93,11 +250,12 @@
             padding: 0.5rem 1rem;
             border-radius: 4px;
             position: relative;
+            transition: all 0.3s ease;
         }
         
         .nav-links a:hover {
             color: var(--gold);
-            background-color: rgba(212, 175, 55, 0.1);
+            background-color: rgba(139, 0, 0, 0.2);
         }
         
         .nav-links a::after {
@@ -107,7 +265,7 @@
             left: 50%;
             width: 0;
             height: 2px;
-            background: var(--gold);
+            background: var(--blood-red);
             transition: all 0.3s ease;
             transform: translateX(-50%);
         }
@@ -123,8 +281,8 @@
         }
         
         .lang-switcher {
-            background-color: var(--sand-dark);
-            color: white;
+            background-color: var(--blood-red);
+            color: var(--sand);
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 4px;
@@ -133,10 +291,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: all 0.3s ease;
         }
         
         .lang-switcher:hover {
-            background-color: var(--gold);
+            background-color: var(--dark-red);
+            transform: translateY(-2px);
         }
         
         .cart-icon {
@@ -144,14 +304,20 @@
             color: var(--sand);
             font-size: 1.5rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-icon:hover {
+            color: var(--gold);
+            transform: scale(1.1);
         }
         
         .cart-count {
             position: absolute;
             top: -8px;
             right: -8px;
-            background-color: var(--gold);
-            color: var(--charcoal);
+            background-color: var(--blood-red);
+            color: var(--gold);
             font-size: 0.8rem;
             width: 20px;
             height: 20px;
@@ -160,172 +326,269 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.8);
         }
         
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
-            background-size: cover;
-            background-position: center;
+            background: radial-gradient(ellipse at center, var(--dark-red) 0%, var(--obsidian) 70%);
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: white;
             padding-top: 80px;
             position: relative;
             overflow: hidden;
         }
         
-        .pyramid {
+        .hero::before {
+            content: '';
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: var(--pyramid-gradient);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            opacity: 0.2;
-            bottom: -150px;
-            right: -100px;
-            animation: float 15s infinite ease-in-out;
-        }
-        
-        .pyramid:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            bottom: -100px;
-            right: 150px;
-            animation-delay: 5s;
-            opacity: 0.15;
-        }
-        
-        .pyramid:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            bottom: -75px;
-            right: 300px;
-            animation-delay: 10s;
-            opacity: 0.1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
+            opacity: 0.3;
+            z-index: 1;
         }
         
         .hero-content {
             max-width: 800px;
             z-index: 2;
+            position: relative;
+        }
+        
+        .floating-cartoons {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.6;
+        }
+        
+        .cartoon-pharaoh {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 100px;
+            height: 150px;
+            background: linear-gradient(to bottom, var(--gold), var(--dark-gold));
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            animation: floatUpDown 4s infinite ease-in-out;
+        }
+        
+        .cartoon-pharaoh::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            width: 60px;
+            height: 30px;
+            background-color: var(--blood-red);
+            clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%);
+        }
+        
+        .cartoon-mummy {
+            position: absolute;
+            bottom: 20%;
+            right: 10%;
+            width: 80px;
+            height: 120px;
+            background-color: var(--cartoon-sand);
+            border-radius: 40px 40px 20px 20px;
+            animation: floatUpDown 5s infinite ease-in-out reverse;
+        }
+        
+        .cartoon-mummy::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 10px,
+                var(--obsidian) 10px,
+                var(--obsidian) 20px
+            );
+            border-radius: 40px 40px 20px 20px;
+            opacity: 0.3;
+        }
+        
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
         
         .hero h2 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-family: 'Cinzel', serif;
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
             color: var(--gold);
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.7), 0 5px 15px rgba(0, 0, 0, 0.8);
+            animation: textGlow 3s infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.7), 0 5px 15px rgba(0, 0, 0, 0.8); }
+            100% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.9), 0 0 40px rgba(139, 0, 0, 0.6), 0 5px 15px rgba(0, 0, 0, 0.8); }
         }
         
         .hero p {
             font-size: 1.4rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             color: var(--sand);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .cta-button {
             display: inline-block;
-            background-color: var(--gold);
-            color: var(--charcoal);
-            padding: 1rem 2.5rem;
-            font-size: 1.2rem;
+            background: linear-gradient(to right, var(--blood-red), var(--dark-red));
+            color: var(--gold);
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
             font-weight: bold;
             text-decoration: none;
             border-radius: 4px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.5);
             transition: all 0.3s ease;
-            border: 2px solid transparent;
+            border: 2px solid var(--dark-gold);
+            position: relative;
+            overflow: hidden;
         }
         
         .cta-button:hover {
-            background-color: transparent;
-            color: var(--gold);
-            border-color: var(--gold);
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.7);
+            color: white;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
         }
         
         /* Products Section */
+        .products-section {
+            padding: 5rem 2rem;
+            background-color: rgba(10, 10, 10, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .products-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
+            opacity: 0.2;
+            z-index: 1;
+        }
+        
         .section-title {
             text-align: center;
-            font-size: 2.8rem;
-            margin: 3rem 0 2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 3.2rem;
+            margin-bottom: 3rem;
+            color: var(--gold);
             position: relative;
-            color: var(--lapis);
+            z-index: 2;
         }
         
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
+            width: 200px;
             height: 4px;
-            background: var(--gold);
+            background: linear-gradient(to right, var(--blood-red), var(--gold));
+            border-radius: 2px;
         }
         
         .products-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 2.5rem;
+            position: relative;
+            z-index: 2;
         }
         
         .product-card {
-            background-color: white;
-            border-radius: 8px;
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.9), rgba(10, 10, 10, 0.9));
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             transition: all 0.4s ease;
             position: relative;
+            border: 1px solid rgba(139, 0, 0, 0.3);
         }
         
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.4), 0 0 30px rgba(212, 175, 55, 0.2);
+            border-color: var(--blood-red);
         }
         
         .product-image {
             height: 250px;
             width: 100%;
             object-fit: cover;
-            border-bottom: 3px solid var(--gold);
+            border-bottom: 3px solid var(--blood-red);
+            filter: sepia(0.3) contrast(1.1);
         }
         
         .product-info {
-            padding: 1.5rem;
+            padding: 1.8rem;
         }
         
         .product-title {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: var(--lapis);
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--gold);
         }
         
         .product-price {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            color: var(--gold);
+            color: var(--blood-red);
             margin-bottom: 1rem;
+            text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
         }
         
         .product-description {
-            color: #666;
-            margin-bottom: 1.5rem;
+            color: var(--sand);
+            margin-bottom: 1.8rem;
             font-size: 0.95rem;
+            line-height: 1.7;
         }
         
         .add-to-cart {
-            background-color: var(--sand-dark);
-            color: white;
+            background: linear-gradient(to right, var(--blood-red), var(--dark-red));
+            color: var(--gold);
             border: none;
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 1.8rem;
             width: 100%;
             border-radius: 4px;
             font-weight: 600;
@@ -334,53 +597,85 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
         
         .add-to-cart:hover {
-            background-color: var(--lapis);
+            background: linear-gradient(to right, var(--dark-red), #4a0000);
+            color: white;
+            letter-spacing: 1px;
         }
         
         /* Payment Section */
         .payment-section {
             max-width: 1400px;
-            margin: 4rem auto;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-top: 5px solid var(--gold);
+            margin: 5rem auto;
+            padding: 3rem;
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(10, 10, 10, 0.95));
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+            border-top: 5px solid var(--blood-red);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .payment-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
+            opacity: 0.1;
+            z-index: 1;
         }
         
         .payment-title {
-            font-size: 2.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--lapis);
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--gold);
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
         
         .payment-methods {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
         }
         
         .payment-icon {
-            font-size: 3.5rem;
-            color: var(--sand-dark);
+            font-size: 4rem;
+            color: var(--sand);
+            transition: all 0.3s ease;
+        }
+        
+        .payment-icon:hover {
+            color: var(--gold);
+            transform: scale(1.2);
         }
         
         .payment-form {
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 1.8rem;
+            position: relative;
+            z-index: 2;
         }
         
         .form-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
         }
         
         .form-group.full-width {
@@ -389,49 +684,72 @@
         
         .form-label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.7rem;
             font-weight: 600;
-            color: var(--lapis);
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
         }
         
         .form-input {
             width: 100%;
-            padding: 0.9rem;
-            border: 2px solid #ddd;
+            padding: 1rem;
+            background-color: rgba(20, 20, 20, 0.8);
+            border: 2px solid rgba(139, 0, 0, 0.5);
             border-radius: 4px;
             font-size: 1rem;
+            color: var(--sand);
+            transition: all 0.3s ease;
         }
         
         .form-input:focus {
-            border-color: var(--gold);
+            border-color: var(--blood-red);
             outline: none;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
         }
         
         .pay-now-btn {
             grid-column: 1 / -1;
-            background-color: var(--gold);
-            color: var(--charcoal);
+            background: linear-gradient(to right, var(--blood-red), var(--dark-red));
+            color: var(--gold);
             border: none;
-            padding: 1.2rem;
-            font-size: 1.2rem;
+            padding: 1.3rem;
+            font-size: 1.3rem;
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            margin-top: 1rem;
         }
         
         .pay-now-btn:hover {
-            background-color: var(--sand-dark);
+            background: linear-gradient(to right, var(--dark-red), #4a0000);
             color: white;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.6);
         }
         
         /* Footer */
         footer {
-            background-color: var(--charcoal);
+            background-color: rgba(5, 5, 5, 0.98);
             color: var(--sand);
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-            border-top: 5px solid var(--gold);
+            padding: 4rem 2rem;
+            margin-top: 5rem;
+            border-top: 5px solid var(--blood-red);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
+            opacity: 0.2;
         }
         
         .footer-content {
@@ -439,13 +757,28 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
         }
         
         .footer-column h3 {
             color: var(--gold);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.6rem;
+            font-family: 'Cinzel', serif;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--blood-red);
         }
         
         .footer-links {
@@ -453,75 +786,29 @@
         }
         
         .footer-links li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
         
         .footer-links a {
             color: var(--sand);
             text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
         
         .footer-links a:hover {
             color: var(--gold);
-            padding-left: 5px;
+            transform: translateX(5px);
         }
         
         .copyright {
             text-align: center;
-            margin-top: 3rem;
+            margin-top: 4rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            border-top: 1px solid rgba(139, 0, 0, 0.3);
             color: #aaa;
-        }
-        
-        /* Animations */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero h2 {
-                font-size: 3rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .products-container {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .payment-form {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Language Specific */
-        .arabic {
-            direction: rtl;
-            font-family: 'Open Sans', sans-serif;
+            position: relative;
+            z-index: 2;
         }
         
         /* Cart Modal */
@@ -532,289 +819,389 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
             z-index: 2000;
             justify-content: center;
             align-items: center;
         }
         
         .cart-content {
-            background-color: white;
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.98), rgba(10, 10, 10, 0.98));
             width: 90%;
             max-width: 800px;
             max-height: 80vh;
             overflow-y: auto;
-            border-radius: 12px;
-            padding: 2rem;
+            border-radius: 15px;
+            padding: 2.5rem;
             position: relative;
+            border: 3px solid var(--blood-red);
+            box-shadow: 0 0 40px rgba(139, 0, 0, 0.5);
         }
         
         .close-cart {
             position: absolute;
             top: 15px;
             right: 20px;
-            font-size: 2rem;
+            font-size: 2.5rem;
             cursor: pointer;
-            color: var(--charcoal);
+            color: var(--gold);
+            transition: all 0.3s ease;
+        }
+        
+        .close-cart:hover {
+            color: var(--blood-red);
+            transform: scale(1.2);
         }
         
         .cart-items {
-            margin: 1.5rem 0;
+            margin: 2rem 0;
         }
         
         .cart-item {
             display: flex;
             align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
         }
         
         .cart-item-image {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
-            border-radius: 4px;
-            margin-right: 1rem;
+            border-radius: 8px;
+            margin-right: 1.5rem;
+            border: 2px solid var(--dark-red);
         }
         
         .cart-total {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             text-align: right;
-            margin-top: 1.5rem;
-            color: var(--lapis);
+            margin-top: 2rem;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 3.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .products-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .pyramid-entrance {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .pyramid-body, .pyramid-side {
+                border-left-width: 150px;
+                border-right-width: 150px;
+                border-bottom-width: 225px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .payment-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .cartoon-pharaoh, .cartoon-mummy {
+                display: none;
+            }
+        }
+        
+        /* Language Specific */
+        .arabic {
+            direction: rtl;
+            font-family: 'Roboto', sans-serif;
         }
     </style>
 </head>
 <body>
-    <!-- Header with Navigation -->
-    <header>
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-eye logo-icon"></i>
-                <h1>HORUS</h1>
+    <!-- Pyramid Entrance Animation -->
+    <div class="preloader" id="preloader">
+        <div class="pyramid-entrance">
+            <div class="pyramid-body"></div>
+            <div class="pyramid-side"></div>
+            <div class="pyramid-door">
+                <div class="door-knob"></div>
             </div>
-            
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Collections</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            
-            <div class="header-controls">
-                <button class="lang-switcher" id="langSwitcher">
-                    <i class="fas fa-language"></i>
-                    <span>English</span>
-                </button>
-                <div class="cart-icon" id="cartIcon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </div>
-            </div>
+            <div class="light-beams"></div>
         </div>
-    </header>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="pyramid"></div>
-        <div class="pyramid"></div>
-        <div class="pyramid"></div>
-        
-        <div class="hero-content">
-            <h2>Wear the Legacy of Pharaohs</h2>
-            <p>Discover our exclusive collection of Egyptian-inspired clothing, where ancient mystique meets modern fashion.</p>
-            <a href="#products" class="cta-button">Explore Collection</a>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products">
-        <h2 class="section-title">Our Collections</h2>
-        
-        <div class="products-container">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Pharaoh's Tunic" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Pharaoh's Tunic</h3>
-                    <p class="product-price">$89.99</p>
-                    <p class="product-description">Luxurious linen tunic with golden hieroglyphic patterns, inspired by ancient Egyptian royalty.</p>
-                    <button class="add-to-cart" data-id="1" data-name="Pharaoh's Tunic" data-price="89.99">
-                        <i class="fas fa-cart-plus"></i> Add to Cart
-                    </button>
+    <!-- Main Website Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Header with Navigation -->
+        <header>
+            <div class="nav-container">
+                <div class="logo-container">
+                    <div class="horus-eye">
+                        <div class="eye-pupil"></div>
+                        <div class="eye-detail"></div>
+                    </div>
+                    <h1 class="logo-text">HORUS</h1>
                 </div>
-            </div>
-            
-            <!-- Product 2 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Nefertiti Dress" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Nefertiti Dress</h3>
-                    <p class="product-price">$129.99</p>
-                    <p class="product-description">Elegant dress with intricate Egyptian motifs, embodying the grace of Queen Nefertiti.</p>
-                    <button class="add-to-cart" data-id="2" data-name="Nefertiti Dress" data-price="129.99">
-                        <i class="fas fa-cart-plus"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Product 3 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Desert Explorer Jacket" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Desert Explorer Jacket</h3>
-                    <p class="product-price">$149.99</p>
-                    <p class="product-description">Stylish jacket with pyramid-inspired patterns, perfect for modern adventurers.</p>
-                    <button class="add-to-cart" data-id="3" data-name="Desert Explorer Jacket" data-price="149.99">
-                        <i class="fas fa-cart-plus"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Product 4 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80" alt="Anubis Hoodie" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Anubis Hoodie</h3>
-                    <p class="product-price">$79.99</p>
-                    <p class="product-description">Comfortable hoodie featuring the iconic Anubis design, combining comfort with ancient symbolism.</p>
-                    <button class="add-to-cart" data-id="4" data-name="Anubis Hoodie" data-price="79.99">
-                        <i class="fas fa-cart-plus"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Product 5 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Scarab Symbol T-Shirt" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Scarab Symbol T-Shirt</h3>
-                    <p class="product-price">$39.99</p>
-                    <p class="product-description">100% cotton t-shirt with an embroidered scarab beetle, the ancient symbol of transformation.</p>
-                    <button class="add-to-cart" data-id="5" data-name="Scarab Symbol T-Shirt" data-price="39.99">
-                        <i class="fas fa-cart-plus"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Product 6 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1520006403909-838d6b92c22e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Cleopatra Skirt" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Cleopatra Skirt</h3>
-                    <p class="product-price">$99.99</p>
-                    <p class="product-description">Flowing skirt with golden accents, inspired by the legendary elegance of Cleopatra.</p>
-                    <button class="add-to-cart" data-id="6" data-name="Cleopatra Skirt" data-price="99.99">
-                        <i class="fas fa-cart-plus"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Payment Section -->
-    <section class="payment-section">
-        <h2 class="payment-title">Secure Checkout</h2>
-        
-        <div class="payment-methods">
-            <i class="fab fa-cc-visa payment-icon"></i>
-            <i class="fab fa-cc-mastercard payment-icon"></i>
-            <i class="fab fa-cc-amex payment-icon"></i>
-            <i class="fab fa-cc-paypal payment-icon"></i>
-        </div>
-        
-        <form class="payment-form" id="paymentForm">
-            <div class="form-group">
-                <label class="form-label" for="cardName">Cardholder Name</label>
-                <input type="text" id="cardName" class="form-input" placeholder="Full Name" required>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="cardNumber">Card Number</label>
-                <input type="text" id="cardNumber" class="form-input" placeholder="1234 5678 9012 3456" required>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="expiryDate">Expiry Date</label>
-                <input type="text" id="expiryDate" class="form-input" placeholder="MM/YY" required>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="cvv">CVV</label>
-                <input type="text" id="cvv" class="form-input" placeholder="123" required>
-            </div>
-            
-            <div class="form-group full-width">
-                <label class="form-label" for="billingAddress">Billing Address</label>
-                <input type="text" id="billingAddress" class="form-input" placeholder="123 Nile Street, Cairo, Egypt" required>
-            </div>
-            
-            <button type="submit" class="pay-now-btn">
-                <i class="fas fa-lock"></i> Complete Purchase
-            </button>
-        </form>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>HORUS</h3>
-                <p>Bringing the majesty of ancient Egypt to modern fashion. Our collections are inspired by pharaohs, pyramids, and the rich history of the Nile.</p>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
+                
+                <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#products">Collections</a></li>
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#about">Legacy</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
+                
+                <div class="header-controls">
+                    <button class="lang-switcher" id="langSwitcher">
+                        <i class="fas fa-language"></i>
+                        <span>English</span>
+                    </button>
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="cartoon-pharaoh"></div>
+            <div class="cartoon-mummy"></div>
+            
+            <div class="hero-content">
+                <h2>WEAR THE ANCIENT LEGACY</h2>
+                <p>Discover our exclusive collection of Egyptian-inspired clothing, where ancient mystique meets modern fashion. No mortal faces, only timeless designs.</p>
+                <a href="#products" class="cta-button">ENTER THE PYRAMID</a>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section" id="products">
+            <h2 class="section-title">SACRED COLLECTIONS</h2>
+            
+            <div class="products-container">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=686&q=80" alt="Pharaoh's Mantle" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Pharaoh's Mantle</h3>
+                        <p class="product-price">$124.99</p>
+                        <p class="product-description">Regal cloak with intricate hieroglyphic embroidery, lined with ceremonial patterns in gold and blood-red threads.</p>
+                        <button class="add-to-cart" data-id="1" data-name="Pharaoh's Mantle" data-price="124.99">
+                            <i class="fas fa-cart-plus"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Anubis Night Robe" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Anubis Night Robe</h3>
+                        <p class="product-price">$89.99</p>
+                        <p class="product-description">Midnight black robe with Anubis motifs, perfect for ceremonial gatherings or mysterious evenings.</p>
+                        <button class="add-to-cart" data-id="2" data-name="Anubis Night Robe" data-price="89.99">
+                            <i class="fas fa-cart-plus"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Scarab Warrior Jacket" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Scarab Warrior Jacket</h3>
+                        <p class="product-price">$149.99</p>
+                        <p class="product-description">Armored-style jacket with scarab beetle detailing, combining ancient symbolism with modern protection.</p>
+                        <button class="add-to-cart" data-id="3" data-name="Scarab Warrior Jacket" data-price="149.99">
+                            <i class="fas fa-cart-plus"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1551537367-d6afbffb0b0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Mummy Wrap Hoodie" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Mummy Wrap Hoodie</h3>
+                        <p class="product-price">$79.99</p>
+                        <p class="product-description">Comfortable hoodie with mummy-inspired wrap patterns, featuring hidden hieroglyphic messages.</p>
+                        <button class="add-to-cart" data-id="4" data-name="Mummy Wrap Hoodie" data-price="79.99">
+                            <i class="fas fa-cart-plus"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1556306510-31ca015374b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Eye of Horus Tunic" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Eye of Horus Tunic</h3>
+                        <p class="product-price">$69.99</p>
+                        <p class="product-description">Protective tunic featuring the all-seeing Eye of Horus, believed to bring wisdom and protection to the wearer.</p>
+                        <button class="add-to-cart" data-id="5" data-name="Eye of Horus Tunic" data-price="69.99">
+                            <i class="fas fa-cart-plus"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1551024606-b4cbc2d57c4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1438&q=80" alt="Pyramid Explorer Pants" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Pyramid Explorer Pants</h3>
+                        <p class="product-price">$94.99</p>
+                        <p class="product-description">Durable pants with pyramid pattern reinforcement, designed for both desert exploration and urban adventures.</p>
+                        <button class="add-to-cart" data-id="6" data-name="Pyramid Explorer Pants" data-price="94.99">
+                            <i class="fas fa-cart-plus"></i> ADD TO CART
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment Section -->
+        <section class="payment-section" id="payment">
+            <h2 class="payment-title">SACRED TRANSACTION</h2>
+            
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa payment-icon"></i>
+                <i class="fab fa-cc-mastercard payment-icon"></i>
+                <i class="fab fa-cc-amex payment-icon"></i>
+                <i class="fab fa-cc-paypal payment-icon"></i>
+                <i class="fab fa-cc-apple-pay payment-icon"></i>
             </div>
             
-            <div class="footer-column">
-                <h3>Customer Service</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Shipping Policy</a></li>
-                    <li><a href="#">Returns & Exchanges</a></li>
-                    <li><a href="#">Size Guide</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
+            <form class="payment-form" id="paymentForm">
+                <div class="form-group">
+                    <label class="form-label" for="cardName">CARTHOLDER NAME</label>
+                    <input type="text" id="cardName" class="form-input" placeholder="Your Full Name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="cardNumber">CARD NUMBER</label>
+                    <input type="text" id="cardNumber" class="form-input" placeholder="•••• •••• •••• ••••" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="expiryDate">EXPIRY DATE</label>
+                    <input type="text" id="expiryDate" class="form-input" placeholder="MM/YY" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="cvv">CVV</label>
+                    <input type="text" id="cvv" class="form-input" placeholder="•••" required>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label class="form-label" for="billingAddress">BILLING ADDRESS</label>
+                    <input type="text" id="billingAddress" class="form-input" placeholder="123 Nile River Road, Thebes, Egypt" required>
+                </div>
+                
+                <button type="submit" class="pay-now-btn">
+                    <i class="fas fa-lock"></i> COMPLETE SACRED TRANSACTION
+                </button>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>HORUS LEGACY</h3>
+                    <p>Bringing the dark majesty of ancient Egypt to modern fashion. Our collections are inspired by pharaohs, pyramids, and the mysterious legends of the Nile.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>SACRED PATHS</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Collections</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Best Sellers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>RITUAL SERVICES</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Shipping Rituals</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Contact the Priests</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>FOLLOW THE EYE</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></li>
+                    </ul>
+                </div>
             </div>
             
-            <div class="footer-column">
-                <h3>Connect With Us</h3>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
-                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
-                    <li><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></li>
-                </ul>
+            <div class="copyright">
+                <p>&copy; 2023 HORUS EGYPTIAN FASHION. ALL RIGHTS RESERVED TO THE PHARAOHS.</p>
             </div>
-        </div>
-        
-        <div class="copyright">
-            <p>&copy; 2023 HORUS Egyptian Fashion. All rights reserved.</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <!-- Cart Modal -->
     <div class="cart-modal" id="cartModal">
         <div class="cart-content">
             <span class="close-cart" id="closeCart">&times;</span>
-            <h2>Your Cart</h2>
+            <h2 class="payment-title">SACRED CART</h2>
             <div class="cart-items" id="cartItems">
-                <!-- Cart items will be added here dynamically -->
-                <p id="emptyCartMessage">Your cart is empty</p>
+                <p id="emptyCartMessage">Your cart is empty. Fill it with ancient treasures.</p>
             </div>
-            <div class="cart-total" id="cartTotal">Total: $0.00</div>
-            <button class="pay-now-btn" style="margin-top: 1rem;" id="checkoutBtn">Proceed to Checkout</button>
+            <div class="cart-total" id="cartTotal">TOTAL: $0.00</div>
+            <button class="pay-now-btn" style="margin-top: 2rem;" id="checkoutBtn">PROCEED TO SACRED TRANSACTION</button>
         </div>
     </div>
 
     <script>
+        // Pyramid Entrance Animation Complete
+        setTimeout(() => {
+            const preloader = document.getElementById('preloader');
+            const mainContent = document.getElementById('mainContent');
+            
+            // Fade out preloader
+            preloader.style.opacity = '0';
+            preloader.style.transition = 'opacity 1s ease';
+            
+            // Show main content after preloader fades
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                mainContent.style.display = 'block';
+                
+                // Add entrance animation to main content
+                mainContent.style.animation = 'contentAppear 1.5s forwards';
+            }, 1000);
+        }, 4000);
+
         // Language Switching
         const langSwitcher = document.getElementById('langSwitcher');
         const langText = langSwitcher.querySelector('span');
@@ -828,22 +1215,22 @@
                 document.body.classList.add('arabic');
                 
                 // Update key text elements
-                document.querySelector('.logo h1').textContent = 'حورس';
-                document.querySelector('.hero h2').textContent = 'ارتدِ إرث الفراعنة';
-                document.querySelector('.hero p').textContent = 'اكتشف مجموعتنا الحصرية من الملابس المستوحاة من مصر القديمة، حيث يلتقي الغموض القديم مع الموضة الحديثة.';
-                document.querySelector('.cta-button').textContent = 'استكشف المجموعة';
-                document.querySelector('.section-title').textContent = 'مجموعاتنا';
-                document.querySelector('.payment-title').textContent = 'الدفع الآمن';
+                document.querySelector('.logo-text').textContent = 'حورس';
+                document.querySelector('.hero h2').textContent = 'ارتدِ الإرث القديم';
+                document.querySelector('.hero p').textContent = 'اكتشف مجموعتنا الحصرية من الملابس المستوحاة من مصر القديمة، حيث يلتقي الغموض القديم مع الموضة الحديثة. لا وجوه بشرية، فقط تصاميم خالدة.';
+                document.querySelector('.cta-button').textContent = 'ادخل الهرم';
+                document.querySelector('.section-title').textContent = 'المجموعات المقدسة';
+                document.querySelector('.payment-title').textContent = 'المعاملة المقدسة';
                 
-                // Update product names (in a real app, you'd have a full translation)
+                // Update product names
                 const productTitles = document.querySelectorAll('.product-title');
                 const arabicTitles = [
-                    'ثوب الفرعون',
-                    'فستان نفرتيتي',
-                    'سترة مستكشف الصحراء',
-                    'هودي أنوبيس',
-                    'تيشرت رمز الجعران',
-                    'تنورة كليوباترا'
+                    'رداء الفرعون',
+                    'رداء أنوبيس الليلي',
+                    'سترة محاربي الجعران',
+                    'هودي لفائف المومياء',
+                    'ثوب عين حورس',
+                    'بنطال مستكشف الأهرامات'
                 ];
                 
                 productTitles.forEach((title, index) => {
@@ -856,14 +1243,21 @@
                     button.innerHTML = '<i class="fas fa-cart-plus"></i> أضف إلى السلة';
                 });
                 
-                document.querySelector('.pay-now-btn').innerHTML = '<i class="fas fa-lock"></i> أكمل الشراء';
+                document.querySelector('.pay-now-btn').innerHTML = '<i class="fas fa-lock"></i> أكمل المعاملة المقدسة';
                 
                 // Update footer text
-                document.querySelectorAll('.footer-column h3')[0].textContent = 'حورس';
-                document.querySelectorAll('.footer-column p')[0].textContent = 'نجلب عظمة مصر القديمة إلى الموضة الحديثة. مجموعاتنا مستوحاة من الفراعنة والأهرامات والتاريخ الغني لنهر النيل.';
-                document.querySelectorAll('.footer-column h3')[1].textContent = 'روابط سريعة';
-                document.querySelectorAll('.footer-column h3')[2].textContent = 'خدمة العملاء';
-                document.querySelectorAll('.footer-column h3')[3].textContent = 'تواصل معنا';
+                document.querySelectorAll('.footer-column h3')[0].textContent = 'إرث حورس';
+                document.querySelectorAll('.footer-column p')[0].textContent = 'نحن نجلب العظمة المظلمة لمصر القديمة إلى الموضة الحديثة. مجموعاتنا مستوحاة من الفراعنة والأهرامات وأساطير النيل الغامضة.';
+                document.querySelectorAll('.footer-column h3')[1].textContent = 'المسارات المقدسة';
+                document.querySelectorAll('.footer-column h3')[2].textContent = 'الخدمات الطقسية';
+                document.querySelectorAll('.footer-column h3')[3].textContent = 'اتبع العين';
+                
+                // Update form labels
+                document.querySelector('label[for="cardName"]').textContent = 'اسم حامل البطاقة';
+                document.querySelector('label[for="cardNumber"]').textContent = 'رقم البطاقة';
+                document.querySelector('label[for="expiryDate"]').textContent = 'تاريخ الانتهاء';
+                document.querySelector('label[for="cvv"]').textContent = 'CVV';
+                document.querySelector('label[for="billingAddress"]').textContent = 'عنوان الفواتير';
                 
             } else {
                 // Switch back to English
@@ -872,21 +1266,21 @@
                 document.body.classList.remove('arabic');
                 
                 // Restore English text
-                document.querySelector('.logo h1').textContent = 'HORUS';
-                document.querySelector('.hero h2').textContent = 'Wear the Legacy of Pharaohs';
-                document.querySelector('.hero p').textContent = 'Discover our exclusive collection of Egyptian-inspired clothing, where ancient mystique meets modern fashion.';
-                document.querySelector('.cta-button').textContent = 'Explore Collection';
-                document.querySelector('.section-title').textContent = 'Our Collections';
-                document.querySelector('.payment-title').textContent = 'Secure Checkout';
+                document.querySelector('.logo-text').textContent = 'HORUS';
+                document.querySelector('.hero h2').textContent = 'WEAR THE ANCIENT LEGACY';
+                document.querySelector('.hero p').textContent = 'Discover our exclusive collection of Egyptian-inspired clothing, where ancient mystique meets modern fashion. No mortal faces, only timeless designs.';
+                document.querySelector('.cta-button').textContent = 'ENTER THE PYRAMID';
+                document.querySelector('.section-title').textContent = 'SACRED COLLECTIONS';
+                document.querySelector('.payment-title').textContent = 'SACRED TRANSACTION';
                 
                 // Restore product names
                 const englishTitles = [
-                    "Pharaoh's Tunic",
-                    "Nefertiti Dress",
-                    "Desert Explorer Jacket",
-                    "Anubis Hoodie",
-                    "Scarab Symbol T-Shirt",
-                    "Cleopatra Skirt"
+                    "Pharaoh's Mantle",
+                    "Anubis Night Robe",
+                    "Scarab Warrior Jacket",
+                    "Mummy Wrap Hoodie",
+                    "Eye of Horus Tunic",
+                    "Pyramid Explorer Pants"
                 ];
                 
                 const productTitles = document.querySelectorAll('.product-title');
@@ -897,17 +1291,24 @@
                 // Update buttons
                 const addToCartButtons = document.querySelectorAll('.add-to-cart');
                 addToCartButtons.forEach(button => {
-                    button.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                    button.innerHTML = '<i class="fas fa-cart-plus"></i> ADD TO CART';
                 });
                 
-                document.querySelector('.pay-now-btn').innerHTML = '<i class="fas fa-lock"></i> Complete Purchase';
+                document.querySelector('.pay-now-btn').innerHTML = '<i class="fas fa-lock"></i> COMPLETE SACRED TRANSACTION';
                 
                 // Update footer text
-                document.querySelectorAll('.footer-column h3')[0].textContent = 'HORUS';
-                document.querySelectorAll('.footer-column p')[0].textContent = 'Bringing the majesty of ancient Egypt to modern fashion. Our collections are inspired by pharaohs, pyramids, and the rich history of the Nile.';
-                document.querySelectorAll('.footer-column h3')[1].textContent = 'Quick Links';
-                document.querySelectorAll('.footer-column h3')[2].textContent = 'Customer Service';
-                document.querySelectorAll('.footer-column h3')[3].textContent = 'Connect With Us';
+                document.querySelectorAll('.footer-column h3')[0].textContent = 'HORUS LEGACY';
+                document.querySelectorAll('.footer-column p')[0].textContent = 'Bringing the dark majesty of ancient Egypt to modern fashion. Our collections are inspired by pharaohs, pyramids, and the mysterious legends of the Nile.';
+                document.querySelectorAll('.footer-column h3')[1].textContent = 'SACRED PATHS';
+                document.querySelectorAll('.footer-column h3')[2].textContent = 'RITUAL SERVICES';
+                document.querySelectorAll('.footer-column h3')[3].textContent = 'FOLLOW THE EYE';
+                
+                // Update form labels
+                document.querySelector('label[for="cardName"]').textContent = 'CARTHOLDER NAME';
+                document.querySelector('label[for="cardNumber"]').textContent = 'CARD NUMBER';
+                document.querySelector('label[for="expiryDate"]').textContent = 'EXPIRY DATE';
+                document.querySelector('label[for="cvv"]').textContent = 'CVV';
+                document.querySelector('label[for="billingAddress"]').textContent = 'BILLING ADDRESS';
             }
         });
         
@@ -958,9 +1359,13 @@
                 updateCartDisplay();
                 
                 // Visual feedback
-                this.innerHTML = '<i class="fas fa-check"></i> Added!';
+                const originalHTML = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> ADDED!';
+                this.style.background = 'linear-gradient(to right, #228B22, #006400)';
+                
                 setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                    this.innerHTML = originalHTML;
+                    this.style.background = 'linear-gradient(to right, var(--blood-red), var(--dark-red))';
                 }, 1500);
             });
         });
@@ -974,8 +1379,8 @@
             // Update cart modal if open
             if (cart.length === 0) {
                 emptyCartMessage.style.display = 'block';
-                cartItemsContainer.innerHTML = '<p id="emptyCartMessage">Your cart is empty</p>';
-                cartTotalElement.textContent = 'Total: $0.00';
+                cartItemsContainer.innerHTML = '<p id="emptyCartMessage">Your cart is empty. Fill it with ancient treasures.</p>';
+                cartTotalElement.textContent = 'TOTAL: $0.00';
                 return;
             }
             
@@ -991,14 +1396,14 @@
                 
                 cartHTML += `
                     <div class="cart-item">
-                        <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="${item.name}" class="cart-item-image">
+                        <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="${item.name}" class="cart-item-image">
                         <div style="flex-grow: 1;">
                             <h4>${item.name}</h4>
                             <p>$${item.price.toFixed(2)} × ${item.quantity}</p>
                         </div>
                         <div>
-                            <p style="font-weight: bold;">$${itemTotal.toFixed(2)}</p>
-                            <button class="remove-item" data-id="${item.id}" style="background: none; border: none; color: #d9534f; cursor: pointer;">
+                            <p style="font-weight: bold; color: var(--gold);">$${itemTotal.toFixed(2)}</p>
+                            <button class="remove-item" data-id="${item.id}" style="background: none; border: none; color: var(--blood-red); cursor: pointer; font-size: 1.2rem;">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -1007,7 +1412,7 @@
             });
             
             cartItemsContainer.innerHTML = cartHTML;
-            cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+            cartTotalElement.textContent = `TOTAL: $${total.toFixed(2)}`;
             
             // Add event listeners to remove buttons
             const removeButtons = document.querySelectorAll('.remove-item');
@@ -1039,7 +1444,7 @@
         // Checkout button
         checkoutBtn.addEventListener('click', () => {
             if (cart.length === 0) {
-                alert('Your cart is empty!');
+                alert('Your cart is empty! Add some ancient treasures first.');
                 return;
             }
             
@@ -1060,18 +1465,24 @@
             const billingAddress = document.getElementById('billingAddress').value;
             
             if (!cardName || !cardNumber || !expiryDate || !cvv || !billingAddress) {
-                alert('Please fill in all payment details.');
+                alert('Please fill in all payment details to complete the sacred transaction.');
                 return;
             }
             
             // Simulate payment processing
             const payButton = this.querySelector('.pay-now-btn');
             const originalText = payButton.innerHTML;
-            payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING SACRED TRANSACTION...';
             payButton.disabled = true;
             
+            // Add dramatic effect
+            document.body.style.animation = 'none';
             setTimeout(() => {
-                alert(`Payment successful! Thank you for your purchase from Horus.`);
+                document.body.style.animation = 'pulse 0.5s';
+            }, 10);
+            
+            setTimeout(() => {
+                alert(`Sacred Transaction Complete! The Pharaohs bless your purchase from Horus.\n\nTotal: $${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}\n\nYour items will be delivered by sacred scarab within 7-14 business days.`);
                 
                 // Clear cart
                 cart = [];
@@ -1082,7 +1493,10 @@
                 paymentForm.reset();
                 payButton.innerHTML = originalText;
                 payButton.disabled = false;
-            }, 2000);
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 3000);
         });
         
         // Smooth scrolling for anchor links
@@ -1102,6 +1516,17 @@
                 }
             });
         });
+        
+        // Add pulse animation for payment processing
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { background-color: var(--obsidian); }
+                50% { background-color: var(--dark-red); }
+                100% { background-color: var(--obsidian); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
